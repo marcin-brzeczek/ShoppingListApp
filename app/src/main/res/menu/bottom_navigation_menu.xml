@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/current"
+        android:icon="@drawable/ic_current_list"
+        android:title="@string/current" />
+    <item
+        android:id="@+id/archived"
+        android:icon="@drawable/ic_archived_list"
+        android:title="@string/archived" />
+</menu>

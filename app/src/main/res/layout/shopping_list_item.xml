@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import
+            alias="DateExtensions"
+            type="mbitsystem.com.shopping.utils.DateExtensionsKt"/>
+
+        <variable
+            name="model"
+            type="mbitsystem.com.shopping.data.model.ShoppingList" />
+
+        <import
+            type="mbitsystem.com.shopping.data.model.ItemState" />
+
+        <variable
+            name="listener"
+            type="mbitsystem.com.shopping.presentation.current.CurrentListViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> listener.invoke(ItemState.DETAILS, model)}"
+        app:onLongClick="@{() -> listener.invoke(ItemState.ARCHIVE, model)}"
+        android:paddingStart="16dp"
+        android:paddingTop="14dp"
+        android:paddingEnd="14dp"
+        android:paddingBottom="14dp">
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{DateExtensions.stringFormat(model.date)}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="02/05/200" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{model.name}"
+            android:textColor="@color/black_light"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/date"
+            tools:text="Dla Twojej wygody w wybranych procesach\nuzupełniamy imię i nazwisko za Ciebie." />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

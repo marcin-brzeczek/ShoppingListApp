@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="mbitsystem.com.shopping.presentation.shoppingItem.ShoppingItemViewModel" />
+
+        <variable
+            name="onClickAddShoppingList"
+            type="kotlin.jvm.functions.Function0"  />
+
+        <variable
+            name="onClickDissmisDialog"
+            type="kotlin.jvm.functions.Function0"  />
+    </data>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/group_bottom_sheet"
+            android:layout_margin="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:onClick="@{() -> onClickDissmisDialog.invoke()}"
+            app:behavior_hideable="true"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="16dp"
+                app:errorText="@{viewModel.nameErrorText}"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/enter_shopping_item_name"
+                    android:inputType="text"
+                    android:text="@={viewModel.name}"
+                   />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/error_title"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="45dp"
+                android:text="@{viewModel.buttonLabel}"
+                android:textColor="@color/backgroundLight"
+                android:background="@color/violet"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:onClick="@{() -> onClickAddShoppingList.invoke()}"
+                app:layout_constraintTop_toBottomOf="@+id/input" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

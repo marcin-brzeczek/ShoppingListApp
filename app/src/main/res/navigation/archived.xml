@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/archived"
+    app:startDestination="@+id/archivedList">
+
+    <fragment
+        android:id="@+id/archivedList"
+        android:name="mbitsystem.com.shopping.presentation.archived.ArchivedListFragment"
+        android:label="Archived"
+        tools:layout="@layout/fragment_archived_list">
+    </fragment>
+
+</navigation>

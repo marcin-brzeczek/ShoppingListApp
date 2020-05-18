@@ -1,0 +1,68 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply from: '../dependencies.gradle'
+apply plugin: "androidx.navigation.safeargs.kotlin"
+
+android {
+    compileSdkVersion TARGET_SDK
+    defaultConfig {
+        applicationId "mbitsystem.com.shopping"
+        minSdkVersion MIN_SDK
+        targetSdkVersion TARGET_SDK
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+        freeCompilerArgs = ["-XXLanguage:+InlineClasses"]
+    }
+
+    packagingOptions {
+        exclude 'main/AndroidManifest.xml'
+    }
+
+    dataBinding {
+        enabled = true
+    }
+    sourceSets {
+        main {
+            java {
+                srcDirs 'src/main/java', 'src/androidTest/java'
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$KOTLIN"
+
+    implementation androidx.values()
+    implementation google.values()
+    implementation deps.values()
+
+    kapt deps_kapt.dagger2_compiler
+    kapt deps_kapt.dagger2_processor
+    kapt deps_kapt.paperparcel_compiler
+    kapt deps_kapt.room_compiler
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support:support-annotations:28.0.0'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+
+}

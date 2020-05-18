@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/current"
+    app:startDestination="@+id/currentList">
+
+    <fragment
+        android:id="@+id/currentList"
+        android:name="mbitsystem.com.shopping.presentation.current.CurrentListFragment"
+        android:label="Current"
+        tools:layout="@layout/fragment_current_list">
+        <action
+            android:id="@+id/action_new_shopping_list"
+            app:destination="@id/new_shopping_list" />
+        <action
+            android:id="@+id/action_details"
+            app:destination="@id/detailsList" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailsList"
+        android:name="mbitsystem.com.shopping.presentation.details.DetailsListFragment"
+        android:label="Details"
+        tools:layout="@layout/fragment_details_list">
+        <argument
+            android:name="ShoppingListItem"
+            app:argType="mbitsystem.com.shopping.data.model.ShoppingList" />
+        <action
+            android:id="@+id/action_shopping_item"
+            app:destination="@id/shopping_item" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/new_shopping_list"
+        android:name="mbitsystem.com.shopping.presentation.shoppingList.AddShoppingListFragment"
+        android:label="New Shopping List"
+        tools:layout="@layout/fragment_add_shopping_list">
+    </dialog>
+
+    <dialog
+        android:id="@+id/shopping_item"
+        android:name="mbitsystem.com.shopping.presentation.shoppingItem.ShoppingItemFragment"
+        android:label="Shopping Item"
+        tools:layout="@layout/fragment_add_shopping_item">
+        <argument
+            android:name="ShoppingItem"
+            app:argType="mbitsystem.com.shopping.data.model.ShoppingItem"
+            />
+    </dialog>
+
+</navigation>
