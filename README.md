@@ -1,5 +1,5 @@
 # Shopping List App
-Simple shopping list application based on MVI architecture with RxJava
+Simple shopping list application
 
 ## Requirements
   - \[x] Done
