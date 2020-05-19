@@ -28,5 +28,5 @@ operations should be only possible when a list isn’t archived.
   ### Modifying details shopping items
 ![modified_details_list](https://user-images.githubusercontent.com/24879552/82318357-ff604280-99cf-11ea-92de-e155fef72455.gif)
 
-  ### Adding shopping list to archive
+  ### Adding shopping list to archive (long click on item)
   ![adding_to_archive](https://user-images.githubusercontent.com/24879552/82318721-9a591c80-99d0-11ea-8415-5d604be6eeec.gif)
