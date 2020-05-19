@@ -21,4 +21,4 @@ Kotlin)
 ● Write unit tests for one class (You can use Mockito / Robolectric / AssertJ)
 ● Please prepare proper architecture design in this project (MVP, MVVM, .. etc.)
 
-![file_viewer](https://user-images.githubusercontent.com/24879552/58427059-c0d6c700-809e-11e9-81d9-5df2ebbbc87c.jpg)
+creating_lists.gif
