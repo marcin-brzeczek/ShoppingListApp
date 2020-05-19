@@ -10,7 +10,7 @@ import mbitsystem.com.shopping.data.model.ShoppingList
 import mbitsystem.com.shopping.data.repository.ShoppingListRepository
 import mbitsystem.com.shopping.presentation.base.BaseViewModel
 import mbitsystem.com.shopping.presentation.base.SingleLiveEvent
-import mbitsystem.com.shopping.utils.SchedulerProviderDelegate
+import mbitsystem.com.shopping.utils.SchedulerProvider
 import me.tatarka.bindingcollectionadapter2.OnItemBind
 import timber.log.Timber
 import javax.inject.Inject
@@ -18,8 +18,8 @@ import javax.inject.Inject
 class CurrentListViewModel @Inject constructor(
     application: Application,
     private val shoppingListRepository: ShoppingListRepository,
-    schedulerProviderDelegate: SchedulerProviderDelegate
-) : BaseViewModel(application), SchedulerProviderDelegate by schedulerProviderDelegate,
+    private val scheduler: SchedulerProvider
+) : BaseViewModel(application),
         (ItemState, ShoppingList) -> Unit {
 
     val shoppingLists = MutableLiveData<List<ShoppingList>>()
@@ -37,7 +37,8 @@ class CurrentListViewModel @Inject constructor(
 
     fun addToArchive(shoppingListId: Long) {
         shoppingListRepository.addToArchive(shoppingListId)
-            .connectIo()
+            .subscribeOn(scheduler.io())
+            .observeOn(scheduler.ui())
             .subscribeBy(
                 onComplete = { Unit },
                 onError = { Timber.e("Error adding to archive shopping list: $it") }
@@ -47,7 +48,8 @@ class CurrentListViewModel @Inject constructor(
 
     fun getShoppingList() {
         shoppingListRepository.getAllOrderByDate()
-            .connectIo()
+            .subscribeOn(scheduler.io())
+            .observeOn(scheduler.ui())
             .subscribeBy(
                 onNext = { shoppingLists.value = it },
                 onError = { Timber.e("Error fetching shopping list: $it") }

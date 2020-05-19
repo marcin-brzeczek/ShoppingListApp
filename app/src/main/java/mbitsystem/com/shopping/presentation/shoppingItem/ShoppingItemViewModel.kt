@@ -8,15 +8,15 @@ import mbitsystem.com.shopping.data.model.ShoppingItem
 import mbitsystem.com.shopping.data.repository.ShoppingItemRepository
 import mbitsystem.com.shopping.presentation.base.BaseViewModel
 import mbitsystem.com.shopping.presentation.base.SingleLiveEvent
-import mbitsystem.com.shopping.utils.SchedulerProviderDelegate
+import mbitsystem.com.shopping.utils.SchedulerProvider
 import timber.log.Timber
 import javax.inject.Inject
 
 class ShoppingItemViewModel @Inject constructor(
     application: Application,
     private val repository: ShoppingItemRepository,
-    schedulerProviderDelegate: SchedulerProviderDelegate
-) : BaseViewModel(application), SchedulerProviderDelegate by schedulerProviderDelegate {
+    private val scheduler: SchedulerProvider
+) : BaseViewModel(application) {
 
     val shoppingItem = MutableLiveData<ShoppingItem>()
     val shouldDismiss = SingleLiveEvent<Boolean>()
@@ -56,7 +56,8 @@ class ShoppingItemViewModel @Inject constructor(
                 shoppingListId = shoppingItem.value!!.shoppingListId
             )
         )
-            .connectIo()
+            .subscribeOn(scheduler.io())
+            .observeOn(scheduler.ui())
             .subscribeBy(
                 onComplete = { shouldDismiss.value = true },
                 onError = {
@@ -70,7 +71,8 @@ class ShoppingItemViewModel @Inject constructor(
 
     private fun updateItem() {
         repository.update(name = name.value!!, shoppingItemId = shoppingItem.value!!.shoppingItemId)
-            .connectIo()
+            .subscribeOn(scheduler.io())
+            .observeOn(scheduler.ui())
             .subscribeBy(
                 onComplete = { shouldDismiss.value = true },
                 onError = {

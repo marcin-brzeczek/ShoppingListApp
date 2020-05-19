@@ -8,7 +8,7 @@ import mbitsystem.com.shopping.R
 import mbitsystem.com.shopping.data.model.ShoppingItem
 import mbitsystem.com.shopping.data.repository.ShoppingItemRepository
 import mbitsystem.com.shopping.presentation.base.BaseViewModel
-import mbitsystem.com.shopping.utils.SchedulerProviderDelegate
+import mbitsystem.com.shopping.utils.SchedulerProvider
 import me.tatarka.bindingcollectionadapter2.OnItemBind
 import timber.log.Timber
 import javax.inject.Inject
@@ -17,8 +17,8 @@ class DetailsListViewModel @Inject constructor(
     application: Application,
     val diff: ShoppingItemDiffCallback,
     private val shoppingItemRepository: ShoppingItemRepository,
-    schedulerProviderDelegate: SchedulerProviderDelegate
-) : BaseViewModel(application), SchedulerProviderDelegate by schedulerProviderDelegate {
+    private val scheduler: SchedulerProvider
+) : BaseViewModel(application) {
 
     val header = MutableLiveData<String>()
     val shoppingItems = MutableLiveData<List<ShoppingItem>>()
@@ -30,7 +30,8 @@ class DetailsListViewModel @Inject constructor(
 
     fun deleteItem(shoppingListId: Long) {
         shoppingItemRepository.delete(shoppingListId)
-            .connectIo()
+            .subscribeOn(scheduler.io())
+            .observeOn(scheduler.ui())
             .subscribeBy(
                 onComplete = { Unit },
                 onError = {
@@ -42,7 +43,8 @@ class DetailsListViewModel @Inject constructor(
 
     fun getShoppingItems(shoppingListId: Long) {
         shoppingItemRepository.getAllOrderByDate(shoppingListId)
-            .connectIo()
+            .subscribeOn(scheduler.io())
+            .observeOn(scheduler.ui())
             .subscribeBy(
                 onNext = { shoppingItems.value = it },
                 onError = { Timber.e("Error fetching shopping items: $it") }

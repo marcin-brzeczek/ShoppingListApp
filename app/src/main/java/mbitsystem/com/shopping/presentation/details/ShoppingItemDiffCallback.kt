@@ -4,7 +4,7 @@ import androidx.recyclerview.widget.DiffUtil
 import mbitsystem.com.shopping.data.model.ShoppingItem
 import javax.inject.Inject
 
-class ShoppingItemDiffCallback @Inject constructor()  : DiffUtil.ItemCallback<ShoppingItem>(){
+open class ShoppingItemDiffCallback @Inject constructor()  : DiffUtil.ItemCallback<ShoppingItem>(){
     override fun areItemsTheSame(oldItem: ShoppingItem, newItem: ShoppingItem) =
         oldItem.shoppingItemId == newItem.shoppingItemId
 

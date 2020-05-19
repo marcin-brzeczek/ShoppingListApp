@@ -1,16 +1,17 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply from: '../dependencies.gradle'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
-    compileSdkVersion TARGET_SDK
+    compileSdkVersion build_versions.compile_sdk
+    buildToolsVersion build_versions.build_tools
+
     defaultConfig {
         applicationId "mbitsystem.com.shopping"
-        minSdkVersion MIN_SDK
-        targetSdkVersion TARGET_SDK
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -21,35 +22,86 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
     kotlinOptions {
         jvmTarget = '1.8'
-        freeCompilerArgs = ["-XXLanguage:+InlineClasses"]
     }
-
-    packagingOptions {
-        exclude 'main/AndroidManifest.xml'
-    }
-
     dataBinding {
         enabled = true
-    }
-    sourceSets {
-        main {
-            java {
-                srcDirs 'src/main/java', 'src/androidTest/java'
-            }
-        }
     }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation deps.app_compat
+    implementation deps.fragment.runtime_ktx
+    implementation deps.material
+    implementation deps.constraint_layout
+
+    // Architecture components
+    implementation deps.lifecycle.runtime
+    implementation deps.lifecycle.extensions
+    kapt deps.lifecycle.compiler
+    implementation deps.room.runtime
+    kapt deps.room.compiler
+    implementation deps.room.rxjava2
+    implementation deps.navigation.fragment_ktx
+    implementation deps.navigation.ui_ktx
+
+    //Dagger
+    implementation deps.dagger.runtime
+    implementation deps.dagger.android
+    implementation deps.dagger.android_support
+    kapt deps.dagger.compiler
+    kapt deps.dagger.android_support_compiler
+
+    //PaperParcel
+    implementation deps.paperparcel.core
+    kapt deps.paperparcel.compiler
+
+    // RxJava
+    implementation deps.rx_android
+    implementation deps.rxjava2
+    implementation deps.rxkotlin
+
+    //Binding collections
+    implementation deps.bindingcollections.adapter
+    implementation deps.bindingcollections.recycler
+
+    // Kotlin
+    implementation deps.kotlin.stdlib
+
+    //Timber
+    implementation deps.timber
+
+    // Dependencies for local unit tests
+    testImplementation deps.junit
+    testImplementation deps.mockito.all
+    testImplementation deps.hamcrest
+    testImplementation deps.arch_core.testing
+    testImplementation deps.kotlin.stdlib
+    testImplementation deps.kotlin.test
+
+    // Android Testing Support Library's runner and rules
+    androidTestImplementation deps.atsl.ext_junit
+    androidTestImplementation deps.atsl.runner
+    androidTestImplementation deps.atsl.rules
+    androidTestImplementation deps.room.testing
+    androidTestImplementation deps.arch_core.testing
+
+    // Dependencies for Android unit tests
+    androidTestImplementation deps.junit
+    androidTestImplementation deps.mockito.core, { exclude group: 'net.bytebuddy' }
+
+    androidTestImplementation deps.annotations
+    androidTestImplementation deps.app_compat
+    androidTestImplementation deps.material
+
+
+  /*  implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$KOTLIN"
 
     implementation androidx.values()
@@ -63,6 +115,10 @@ dependencies {
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support:support-annotations:28.0.0'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'*/
 
+}
+
+repositories {
+    google()
 }

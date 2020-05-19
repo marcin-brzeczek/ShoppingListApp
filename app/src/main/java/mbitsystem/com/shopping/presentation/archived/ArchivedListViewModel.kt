@@ -8,7 +8,7 @@ import mbitsystem.com.shopping.R
 import mbitsystem.com.shopping.data.model.ShoppingList
 import mbitsystem.com.shopping.data.repository.ShoppingListRepository
 import mbitsystem.com.shopping.presentation.base.BaseViewModel
-import mbitsystem.com.shopping.utils.SchedulerProviderDelegate
+import mbitsystem.com.shopping.utils.SchedulerProvider
 import me.tatarka.bindingcollectionadapter2.OnItemBind
 import timber.log.Timber
 import javax.inject.Inject
@@ -16,8 +16,8 @@ import javax.inject.Inject
 class ArchivedListViewModel @Inject constructor(
     application: Application,
     private val shoppingListRepository: ShoppingListRepository,
-    schedulerProviderDelegate: SchedulerProviderDelegate
-) : BaseViewModel(application), SchedulerProviderDelegate by schedulerProviderDelegate {
+    private val scheduler:SchedulerProvider
+) : BaseViewModel(application){
 
     val shoppingLists = MutableLiveData<List<ShoppingList>>()
 
@@ -27,7 +27,8 @@ class ArchivedListViewModel @Inject constructor(
 
     fun getArchivedShoppingList() {
         shoppingListRepository.getAllArchivedOrderByDate()
-            .connectIo()
+            .subscribeOn(scheduler.io())
+            .observeOn(scheduler.ui())
             .subscribeBy(
                 onNext = { shoppingLists.value = it },
                 onError = { Timber.e("Error fetching shopping list: $it") }

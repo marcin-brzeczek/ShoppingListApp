@@ -4,11 +4,6 @@
         <item name="colorPrimary">@color/violet</item>
         <item name="colorPrimaryDark">#3F51B5</item>
         <item name="colorAccent">@color/violet_dark</item>
-        <item name="android:actionOverflowButtonStyle">@style/CustomOverflowButton</item>
-    </style>
-
-    <style name="CustomOverflowButton" parent="@style/Widget.AppCompat.Light.ActionButton.Overflow">
-        <item name="android:src">@drawable/ic_filter_list</item>
     </style>
 
     <style name="MyCardViewStyle" parent="Theme.AppCompat.Light">

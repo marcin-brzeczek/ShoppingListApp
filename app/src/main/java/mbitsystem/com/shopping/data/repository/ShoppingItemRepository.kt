@@ -5,7 +5,7 @@ import mbitsystem.com.shopping.data.dao.ShoppingItemDao
 import mbitsystem.com.shopping.data.model.ShoppingItem
 import javax.inject.Inject
 
-class ShoppingItemRepository @Inject constructor(val shoppingItemDao: ShoppingItemDao) {
+open class ShoppingItemRepository @Inject constructor(val shoppingItemDao: ShoppingItemDao) {
 
     fun getAllOrderByDate(shoppingListId: Long) = shoppingItemDao.getAllOrderByDate(shoppingListId)
 

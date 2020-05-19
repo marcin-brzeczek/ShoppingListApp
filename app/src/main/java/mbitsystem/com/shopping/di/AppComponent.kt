@@ -7,19 +7,17 @@ import dagger.android.AndroidInjectionModule
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 import mbitsystem.com.shopping.InitApp
-import pl.nextapps.spark.wallet.di.module.schedulers.SchedulersModule
 import javax.inject.Singleton
 
 @Singleton
 @Component(
     modules = [
-        AppModuleImplementations::class,
+        AppModule::class,
         AndroidInjectionModule::class,
         AndroidSupportInjectionModule::class,
         ActivityInjectorsModule::class,
         FragmentInjectorsModule::class,
         ViewModelModule::class,
-        SchedulersModule::class,
         RoomModule::class]
 )
 interface AppComponent : AndroidInjector<InitApp> {

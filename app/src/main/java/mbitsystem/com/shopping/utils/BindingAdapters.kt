@@ -2,6 +2,7 @@ package mbitsystem.com.shopping.utils
 
 import android.view.View
 import androidx.databinding.BindingAdapter
+import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
 @BindingAdapter("app:errorText")
@@ -22,5 +23,13 @@ fun onLongClick(view: View, doOnClick: () -> Unit) {
     view.setOnLongClickListener {
         doOnClick()
         true
+    }
+}
+
+@BindingAdapter("app:cursorPositionEnd")
+fun setCursorPositionEnd(view:TextInputEditText, value:Boolean) {
+    view.text?.let {
+        if (value && it.toString().isNotEmpty())
+            view.setSelection(view.text.toString().length)
     }
 }

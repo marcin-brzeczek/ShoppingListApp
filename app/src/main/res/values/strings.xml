@@ -1,20 +1,24 @@
 <resources>
     <string name="app_name">ShoppingListApp</string>
-    <string name="archived">Archived</string>
+
     <string name="current">Current</string>
     <string name="details">Details</string>
+    <string name="archived">Archived</string>
+
     <string name="add_shopping_list">Add Shopping List</string>
-    <string name="add_shopping_item">Add Shopping Item</string>
-    <string name="delete_shopping_item">Delete Shopping Item</string>
-    <string name="error_name">Incorrect name</string>
-    <string name="empty_list_text">This list is empty.\nClick the button below to add a new item</string>
     <string name="empty_list_archived_text">No archived lists</string>
-    <string name="enter_shopping_item_name">Enter shopping item name</string>
     <string name="want_add_to_archive">Do you want to add to archive %s list?</string>
     <string name="add_to_archive">Adding to archive</string>
+
+    <string name="add_shopping_item">Add Shopping Item</string>
+    <string name="enter_shopping_item_name">Enter shopping item name</string>
+    <string name="update_shopping_item">Update shopping item</string>
+    <string name="delete_shopping_item">Delete Shopping Item</string>
+
+    <string name="empty_list_text">This list is empty.\nClick the button below to add a new item</string>
+    <string name="error_name">Incorrect name</string>
+    <string name="want_delete_item">Do you want to delete item %s ?</string>
     <string name="ok">OK</string>
     <string name="cancel">CANCEL</string>
-    <string name="want_delete_item">Do you want to delete item %s ?</string>
-    <string name="delete_item">Deleting item</string>
-    <string name="update_shopping_item">Update shopping item</string>
+
 </resources>
